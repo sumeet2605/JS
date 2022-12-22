@@ -7,11 +7,13 @@ const {SessionsClient} = require('@google-cloud/dialogflow-cx');
 const { response } = require("express");
 
 const projectId = process.env.PROJECT_ID;
-const location = 'global';
+// const location = 'global';
 const agentId = process.env.AGENTID;
 const port = process.env.PORT || 8080;
 const languageCode = 'en';
-const client = new SessionsClient();
+const location = 'asia-south1'
+const client = new SessionsClient({apiEndpoint: 'asia-south1-dialogflow.googleapis.com'})
+// const client = new SessionsClient();
 
 
 
