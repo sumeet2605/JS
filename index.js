@@ -94,7 +94,7 @@ app.post("/webhook",(req,res)=>{ //i want some
                console.log("phone number "+phon_no_id);
                console.log("from "+from);
                console.log("boady param "+msg_body);
-               let response = detectIntentText(msg_body);     
+              //  let response = detectIntentText(msg_body);     
                console.log("Response: "+response);
                axios({
                    method:"POST",
