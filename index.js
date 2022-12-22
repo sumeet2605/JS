@@ -6,7 +6,7 @@ require('dotenv').config();
 const {SessionsClient} = require('@google-cloud/dialogflow-cx');
 const { response } = require("express");
 
-const project_id = process.env.PROJECT_ID;
+const projectId = process.env.PROJECT_ID;
 const location = 'global';
 const agentId = process.env.AGENTID;
 const port = process.env.PORT || 8080;
