@@ -78,10 +78,9 @@ app.post("/webhook",(req,res)=>{ //i want some
 
     let body_param=req.body;
 
-    console.log(JSON.stringify(body_param,null,2));
+    // console.log(JSON.stringify(body_param,null,2));
 
     if(body_param.object){
-        console.log("inside body param");
         if(body_param.entry && 
             body_param.entry[0].changes && 
             body_param.entry[0].changes[0].value.messages && 
@@ -94,8 +93,11 @@ app.post("/webhook",(req,res)=>{ //i want some
                console.log("phone number "+phon_no_id);
                console.log("from "+from);
                console.log("boady param "+msg_body);
-              //  let response = detectIntentText(msg_body);     
+               
+               let response = detectIntentText(msg_body);     
+               
                console.log("Response: "+response);
+               
                axios({
                    method:"POST",
                    url:"https://graph.facebook.com/v13.0/"+phon_no_id+"/messages?access_token="+token,
