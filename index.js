@@ -3,11 +3,13 @@ const body_parser = require("body-parser");
 const axios = require("axios");
 require('dotenv').config();
 
+const port = process.env.PORT || 8080;
+
 const app = express().use(body_parser.json());
 const token = process.env.TOKEN;
 const mytoken=process.env.MYTOKEN;
 
-app.listen(process.env.PORT, ()=>{
+app.listen(port, ()=>{
     console.log("Webhook is listening");
 });
 
