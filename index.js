@@ -12,9 +12,11 @@ const agentId = process.env.AGENTID;
 const port = process.env.PORT || 8080;
 const languageCode = 'en';
 const location = 'asia-south1';
-const opts = {apiEndpoint: 'asia-south1-dialogflow.googleapis.com', credentials: {
-  client_email: process.env.CLIENTEMAIL,
-  private_key: process.env.PRIVATEKEY,
+const opts = {
+  apiEndpoint: 'asia-south1-dialogflow.googleapis.com',
+  credentials: {
+      client_email: process.env.CLIENTEMAIL,
+      private_key: process.env.PRIVATEKEY?.replace(/\\n/g, "\n")
 }};
 const client = new SessionsClient(opts);
 // const client = new SessionsClient();
