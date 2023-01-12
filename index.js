@@ -14,11 +14,11 @@ if (!process.env.AGENT_ID) {
 
 const agentId = process.env.AGENT_ID;
 const [, projectId, , location, , agentUuid] = agentId.split(/\//);
-
+const app = express();
 app.use(express.json());
 app.use(morgan('combined'));
 
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 8080;
 const token = process.env.TOKEN;
 const mytoken=process.env.MYTOKEN;
 
