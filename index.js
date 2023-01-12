@@ -60,9 +60,14 @@ async function detectIntentText(query) {
       languageCode: 'en',
     }
   });
+  let text = "";
   for (const message of response.queryResult.responseMessages) {
     if (message.text) {
       console.log(`Agent Response: ${message.text.text}`);
+      
+      text += message.text.text + "\n";
+
+
       }
     }
     if (response.queryResult.match.intent) {
@@ -73,6 +78,7 @@ async function detectIntentText(query) {
     console.log(
       `Current Page: ${response.queryResult.currentPage.displayName}`
     );
+  return text.trim();
   }
 
 app.post("/webhook",(req,res)=>{ //i want some 
@@ -106,7 +112,7 @@ app.post("/webhook",(req,res)=>{ //i want some
                        messaging_product:"whatsapp",
                        to:from,
                        text:{
-                           body:"Hi..... Welcome to Alluring Lens by AR"
+                           body: response
                        }
                    },
                    headers:{
