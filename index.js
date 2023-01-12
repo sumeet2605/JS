@@ -65,8 +65,8 @@ async function detectIntentText(query) {
     if (message.text) {
       console.log(`Agent Response: ${message.text.text}`);
       
-      text += message.text.text + "\n";
-
+      text += message.text.text;
+      text += "\n"
 
       }
     }
@@ -101,9 +101,9 @@ app.post("/webhook",(req,res)=>{ //i want some
                console.log("from "+from);
                console.log("boady param "+msg_body);
                
-               let response = detectIntentText(msg_body);     
+               let responses = detectIntentText(msg_body);     
                
-               console.log("Response: "+response);
+               console.log("Response: "+ responses);
                
                axios({
                    method:"POST",
@@ -112,7 +112,7 @@ app.post("/webhook",(req,res)=>{ //i want some
                        messaging_product:"whatsapp",
                        to:from,
                        text:{
-                           body: response
+                           body: responses
                        }
                    },
                    headers:{
