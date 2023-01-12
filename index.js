@@ -1,29 +1,24 @@
 const express = require("express");
 const body_parser = require("body-parser");
 const axios = require("axios");
+const http = require('http');
+const morgan = require('morgan');
 require('dotenv').config();
 
 const {SessionsClient} = require('@google-cloud/dialogflow-cx');
 const { response } = require("express");
 
-const projectId = process.env.PROJECT_ID;
-// const location = 'global';
-const agentId = process.env.AGENTID;
-const port = process.env.PORT || 8080;
-const languageCode = 'en';
-const location = 'asia-south1';
-const opts = {
-  apiEndpoint: 'asia-south1-dialogflow.googleapis.com',
-  credentials: {
-      client_email: process.env.CLIENTEMAIL,
-      private_key: process.env.PRIVATEKEY?.replace(/\\n/g, "\n")
-}};
-const client = new SessionsClient(opts);
-// const client = new SessionsClient();
+if (!process.env.AGENT_ID) {
+  throw new Error('AGENT_ID environment variable is required.');
+}
 
+const agentId = process.env.AGENT_ID;
+const [, projectId, , location, , agentUuid] = agentId.split(/\//);
 
+app.use(express.json());
+app.use(morgan('combined'));
 
-const app = express().use(body_parser.json());
+const port = process.env.PORT || 80;
 const token = process.env.TOKEN;
 const mytoken=process.env.MYTOKEN;
 
@@ -48,26 +43,26 @@ app.get("/webhook",(req,res)=>{
 });
 
 async function detectIntentText(query) {
-    const sessionId = Math.random().toString(36).substring(7);
-    const sessionPath = client.projectLocationAgentSessionPath(
-      projectId,
-      location,
-      agentId,
-      sessionId
-    );
-    const request = {
-      session: sessionPath,
-      queryInput: {
-        text: {
-          text: query,
-        },
-        languageCode,
+  const opts = {
+    apiEndpoint: `${location}-dialogflow.googleapis.com`,
+    projectId,
+    language: 'en'
+  };
+
+  const sessionId = Math.random().toString(36).substring(7);
+  const client = new SessionsClient(opts);
+  const [response] = await client.detectIntent({
+    session: `${agentId}/sessions/${sessionId}`,
+    queryInput: {
+      text: {
+        text: query,
       },
-    };
-    const [response] = await client.detectIntent(request);
-    for (const message of response.queryResult.responseMessages) {
-      if (message.text) {
-        console.log(`Agent Response: ${message.text.text}`);
+      languageCode: 'en',
+    }
+  });
+  for (const message of response.queryResult.responseMessages) {
+    if (message.text) {
+      console.log(`Agent Response: ${message.text.text}`);
       }
     }
     if (response.queryResult.match.intent) {
@@ -79,7 +74,7 @@ async function detectIntentText(query) {
       `Current Page: ${response.queryResult.currentPage.displayName}`
     );
   }
-  
+
 app.post("/webhook",(req,res)=>{ //i want some 
 
     let body_param=req.body;
