@@ -106,7 +106,7 @@ app.post("/webhook",(req,res)=>{ //i want some
                
                let responses =detectIntentText(msg_body);     
                
-               console.log(`Response: ${detectIntentText(msg_body)}`);
+               console.log(`Response: ${detectIntentText(msg_body).text()}`);
 
                
                axios({
@@ -127,6 +127,7 @@ app.post("/webhook",(req,res)=>{ //i want some
 
                res.sendStatus(200);
             }else{
+
                 res.sendStatus(404);
             }
 
