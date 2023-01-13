@@ -82,7 +82,7 @@ async function detectIntentText(query) {
   return text;
   }
 
-app.post("/webhook",(req,res)=>{ //i want some 
+app.post("/webhook", async (req,res)=>{ //i want some 
 
     let body_param=req.body;
 
@@ -102,12 +102,12 @@ app.post("/webhook",(req,res)=>{ //i want some
                console.log("from "+from);
                console.log("boady param "+msg_body);
                
-               let responses =detectIntentText(msg_body);     
+               let responses = await detectIntentText(msg_body);     
               
-               let text = "";
-               responses.then(text);
+              //  let text = "";
+              //  responses.then(text);
 
-               console.log("Response: "+text);
+               console.log("Response: "+responses);
 
                
                axios({
