@@ -76,9 +76,9 @@ async function detectIntentText(query) {
     console.log(
       `Current Page: ${response.queryResult.currentPage.displayName}`
     );
-    console.log(
-      `Text: ${text.trim()}`
-    );
+    // console.log(
+    //   `Text: ${text.trim()}`
+    // );
   return text;
   }
 
@@ -103,10 +103,11 @@ app.post("/webhook",(req,res)=>{ //i want some
                console.log("boady param "+msg_body);
                
                let responses =detectIntentText(msg_body);     
-               
-               let text = responses.then(text);
+              
+               let text = "";
+               responses.then(text);
 
-               console.log("Text: "+text);
+               console.log("Response: "+text);
 
                
                axios({
