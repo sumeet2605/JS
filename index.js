@@ -61,15 +61,15 @@ async function detectIntentText(query) {
     }
   });
   let text = "";
-  // for (const message of response.queryResult.responseMessages) {
-  //   if (message.text) {
-  //     console.log(`Agent Response: ${message.text.text}`);
+  for (const message of response.queryResult.responseMessages) {
+    if (message.text) {
+      console.log(`Agent Response: ${message.text.text}`);
       
-  //     text += message.text.text;
-  //     text += "\n"
+      text += message.text.text;
+      text += "\n"
 
-  //     }
-  //   }
+      }
+    }
     if (response.queryResult.match.intent) {
       console.log(
         `Matched Intent: ${response.queryResult.match.intent.displayName}`
@@ -78,10 +78,10 @@ async function detectIntentText(query) {
     console.log(
       `Current Page: ${response.queryResult.currentPage.displayName}`
     );
-    // console.log(
-    //   `Text: ${text.trim()}`
-    // );
-  return response;
+    console.log(
+      `Text: ${text.trim()}`
+    );
+  return text;
   }
 
 app.post("/webhook",(req,res)=>{ //i want some 
@@ -106,12 +106,6 @@ app.post("/webhook",(req,res)=>{ //i want some
                
                let responses =detectIntentText(msg_body);     
                
-               for (const message of responses.queryResult.responseMessages) {
-                if (message.text) {
-                  console.log(`Agent Response: ${message.text.text}`);
-            
-                  }
-                }
                console.log("Response: "+responses);
 
                
