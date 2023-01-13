@@ -104,7 +104,7 @@ app.post("/webhook",(req,res)=>{ //i want some
                
                let responses =detectIntentText(msg_body);     
                
-               let text = responses;
+               let text = responses.then(text);
 
                console.log("Text: "+text);
 
