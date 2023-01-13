@@ -78,6 +78,9 @@ async function detectIntentText(query) {
     console.log(
       `Current Page: ${response.queryResult.currentPage.displayName}`
     );
+    console.log(
+      `Text: ${text.trim()}`
+    );
   return text.trim();
   }
 
@@ -113,7 +116,7 @@ app.post("/webhook",(req,res)=>{ //i want some
                        messaging_product:"whatsapp",
                        to:from,
                        text:{
-                           body: ""+${detectIntentText(msg_body)}
+                           body: "Welcome to Alluring Lens."
                        }
                    },
                    headers:{
