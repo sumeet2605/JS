@@ -106,7 +106,9 @@ app.post("/webhook",(req,res)=>{ //i want some
                
                let responses = detectIntentText(msg_body);     
                
-               responses.then(console.log);
+               let text = responses.then();
+
+               console.log("Text: "+text);
 
                
                axios({
