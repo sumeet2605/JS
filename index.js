@@ -117,7 +117,7 @@ app.post("/webhook", async (req,res)=>{ //i want some
                        messaging_product:"whatsapp",
                        to:from,
                        text:{
-                           body: "Welcome to Alluring Lens."
+                           body: responses
                        }
                    },
                    headers:{
