@@ -104,9 +104,9 @@ app.post("/webhook",(req,res)=>{ //i want some
                console.log("from "+from);
                console.log("boady param "+msg_body);
                
-               let responses =detectIntentText(msg_body);     
+               let responses = await detectIntentText(msg_body);     
                
-               console.log(`Response: ${detectIntentText(msg_body)}`);
+               console.log(`Response: ${await detectIntentText(msg_body)}`);
 
                
                axios({
