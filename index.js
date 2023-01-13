@@ -40,14 +40,14 @@ app.get("/webhook",(req,res)=>{
     }
 });
 
-async function detectIntentText(query) {
+async function detectIntentText(query, phone, from) {
   const opts = {
     apiEndpoint: `${location}-dialogflow.googleapis.com`,
     projectId,
     language: 'en'
   };
 
-  const sessionId = Math.random().toString(36).substring(7);
+  const sessionId = (phone+from).toString(36).substring(7);
   const client = new SessionsClient(opts);
   const [response] = await client.detectIntent({
     session: `${agentId}/sessions/${sessionId}`,
@@ -102,7 +102,7 @@ app.post("/webhook", async (req,res)=>{ //i want some
                console.log("from "+from);
                console.log("boady param "+msg_body);
                
-               let responses = await detectIntentText(msg_body);     
+               let responses = await detectIntentText(msg_body, phon_no_id, from);     
               
               //  let text = "";
               //  responses.then(text);
