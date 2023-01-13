@@ -81,7 +81,7 @@ async function detectIntentText(query) {
     console.log(
       `Text: ${text.trim()}`
     );
-  return response.queryResult.responseMessages;
+  return response;
   }
 
 app.post("/webhook",(req,res)=>{ //i want some 
@@ -104,7 +104,7 @@ app.post("/webhook",(req,res)=>{ //i want some
                console.log("from "+from);
                console.log("boady param "+msg_body);
                
-               let responses = detectIntentText(msg_body);     
+               let responses =detectIntentText(msg_body);     
                
                console.log("Response: "+responses);
                
